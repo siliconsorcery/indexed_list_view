@@ -1,7 +1,7 @@
 name: indexed_list_view
 description: Similar to a ListView, but lets you programmatically jump to any item, by index.
 version: 0.0.1
-author: Marcelo Glasberg
+author: Marcelo Glasberg <marcglasberg@gmail.com>
 homepage: https://github.com/marcglasberg/indexed_list_view
 
 dependencies:
@@ -11,6 +11,9 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+environment:
+  sdk: ">=2.0.0-dev.28.0 <3.0.0"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
