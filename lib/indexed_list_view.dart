@@ -66,9 +66,26 @@ class IndexedScrollController extends ScrollController {
             debugLabel: debugLabel);
 
   void jumpToIndex(int index) {
-    _startIndex = index;
-    _hasChangedStartIndex = true;
-    notifyListeners();
+    if (_startIndex != index) {
+      _startIndex = index;
+      _hasChangedStartIndex = true;
+      notifyListeners();
+    } else
+      jumpTo(0.0);
+  }
+
+  /// Animates only if you are going back to the last index you jumped to.
+  void animateToIndex(
+    int index, {
+    Duration duration = const Duration(milliseconds: 750),
+    Curve curve = Curves.decelerate,
+  }) {
+    if (_startIndex != index) {
+      _startIndex = index;
+      _hasChangedStartIndex = true;
+      notifyListeners();
+    } else
+      animateTo(0.0, duration: duration, curve: curve);
   }
 
   @override
