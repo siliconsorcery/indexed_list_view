@@ -36,6 +36,9 @@ class _UnboundedScrollPosition extends ScrollPositionWithSingleContext {
   @override
   double get minScrollExtent => double.negativeInfinity;
 
+  @override
+  double get maxScrollExtent => double.infinity;
+
   /// There is a feedback-loop between aboveController and belowController. When one of them is
   /// being used, it controls the other. However if they get out of sync, for timing reasons,
   /// the controlled one with try to control the other, and the jump will stop the real controller.
@@ -125,14 +128,15 @@ class _IndexedListViewState extends State<IndexedListView> {
     // Use the widget.controller as the positive controller, if given.
     // Otherwise, create our own internal positive controller.
     if (widget.controller == null) {
-      _positiveController?.dispose();
       _positiveController = IndexedScrollController();
     } else
       _positiveController = widget.controller;
 
     // Create an internal negative controller.
-    _negativeController?.dispose();
-    _negativeController = IndexedScrollController(keepScrollOffset: false);
+    _negativeController = IndexedScrollController(
+      keepScrollOffset: false,
+      initialScrollOffset: -10000.0, // Starts out of the screen.
+    );
 
     // Instantiate the negative and positive list positions, relative to one another.
     WidgetsBinding.instance.addPostFrameCallback((_) => _negativeController
@@ -186,6 +190,12 @@ class _IndexedListViewState extends State<IndexedListView> {
         _positiveController._jumpToWithoutGoingIdleAndKeepingBallistic(newBelowPosition);
       }
     });
+  }
+
+  @override
+  void didUpdateWidget(IndexedListView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // TODO: Should check if widget.controller changed, and remove/addListener as needed.
   }
 
   @override

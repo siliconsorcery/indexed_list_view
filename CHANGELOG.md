@@ -7,3 +7,11 @@
 
 * Small fixes.
 * Initial animateToIndex.
+
+## [0.0.3] - 15/08/2018
+
+* Small fix.
+
+## [0.0.4] - 12/09/2018
+
+* Removed unnecessary code.
